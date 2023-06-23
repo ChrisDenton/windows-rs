@@ -14,12 +14,6 @@ pub fn gen_sys_handle(gen: &Gen, def: TypeDef) -> TokenStream {
         Type::ISize if gen.std => quote! {
             pub type #ident = *mut ::core::ffi::c_void;
         },
-        Type::USize if gen.std => quote! {
-            #[cfg(target_pointer_width = "32")]
-            pub type #ident = u32;
-            #[cfg(target_pointer_width = "64")]
-            pub type #ident = u64;
-        },
         underlying_type => {
             let signature = gen.type_default_name(&underlying_type);
 
